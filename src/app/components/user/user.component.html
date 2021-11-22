@@ -1,0 +1,223 @@
+
+<button
+type="button"
+class="btn btn-primary"
+data-toggle="modal"
+data-target="#moda"
+(click)="showModel()"
+>
+add User
+</button>
+<div class="card card-default mt-2">
+<div class="card-header">
+  <h3 class="card-title">User List</h3>
+
+  <div class="card-tools">
+    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+      <i class="fas fa-minus"></i>
+    </button>
+    <button type="button" class="btn btn-tool" data-card-widget="remove">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+</div>
+<!-- /.card-header -->
+<div class="card-body">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <!-- /.card-header -->
+        <div class="card-body">
+          <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+            <div class="row">
+              <div class="col-sm-12">
+                <table
+                  id="example1"
+                  class="
+                    table table-bordered table-striped
+                    dataTable
+                    dtr-inline
+                    collapsed
+                  "
+                  aria-describedby="example1_info"
+                >
+                  <thead>
+                    <tr>
+                      <th
+                        class="sorting sorting_asc"
+                        tabindex="0"
+                        aria-controls="example1"
+                        rowspan="1"
+                        colspan="1"
+                        aria-sort="ascending"
+                        aria-label="Rendering engine: activate to sort column descending"
+                      >
+                        Id
+                      </th>
+                      <th
+                        class="sorting sorting_asc"
+                        tabindex="0"
+                        aria-controls="example1"
+                        rowspan="1"
+                        colspan="1"
+                        aria-sort="ascending"
+                        aria-label="Rendering engine: activate to sort column descending"
+                      >
+                        Name
+                      </th>
+                      <th
+                        class="sorting"
+                        tabindex="0"
+                        aria-controls="example1"
+                        rowspan="1"
+                        colspan="1"
+                        aria-label="Browser: activate to sort column ascending"
+                      >
+                        Active
+                      </th>
+                      
+                      
+                      <th
+                        class="sorting"
+                        tabindex="0"
+                        aria-controls="example1"
+                        rowspan="1"
+                        colspan="1"
+                        aria-label="CSS grade: activate to sort column ascending"
+                      >
+                        Action
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                   
+                    <tr *ngFor="let user of userList.data">
+                      <td>{{user.userid}}</td>
+                      <td>{{user.fullname}}</td>
+                      <td>{{user.active}}</td>
+                      <td>
+                        <a class="btn btn-primary mx-3" (click)="editUser(user)">edit</a>
+                        <a class="btn btn-danger" (click)="deleteUser(user.userid)">delete</a>
+                      </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+    </div>
+    <!-- /.col -->
+  </div>
+  <!-- /.col -->
+</div>
+<!-- /.row -->
+</div>
+
+
+<!-- modal starts here -->
+<div class="modal fade" id="modal-default">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">User</h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="userForm">
+          <div class="row mt-5 g-4">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input
+                  type="text"
+                  formControlName="fullName"
+                  placeholder="Name"
+                  class="form-control"
+                  autocomplete="of"
+                />
+                <span
+                  class="text-danger"
+                  *ngIf="
+                    userForm.get('fullName')?.hasError('required') &&
+                    userForm.get('fullName')?.touched
+                  "
+                  >Name is required ..</span
+                >
+              </div>
+            </div>
+            <div class="col-md-6" >
+              <div class="form-group">
+                <input
+                  type="text"
+                  formControlName="email"
+                  placeholder="email"
+                  class="form-control"
+                  email='true'
+                  autocomplete="of"
+                />
+                <span
+                  class="text-danger"
+                  *ngIf="
+                    userForm.get('email')?.hasError('required') &&
+                    userForm.get('email')?.touched
+                  "
+                  >Name is required ..</span>
+                <span
+                  class="text-danger"
+                  *ngIf="
+                    userForm.get('email')?.hasError('email') &&
+                    userForm.get('email')?.touched
+                  "
+                  >Write a valid email ..</span
+                >
+              </div>
+            </div>
+            
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input
+                  type="text"
+                  placeholder="password"
+                  formControlName="password"
+                  class="form-control"
+                  autocomplete="of"
+                />
+                <span
+                  class="text-danger"
+                  *ngIf="
+                    userForm.get('password')?.hasError('required') &&
+                    userForm.get('password')?.touched
+                  "
+                  >password is required ..</span
+                >
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer justify-content-between" >
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          Close
+        </button>
+        <button (click)="addUser()" [disabled]="!this.userForm.valid" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- end  of modal -->

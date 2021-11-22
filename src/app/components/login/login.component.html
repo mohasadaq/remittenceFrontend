@@ -1,0 +1,70 @@
+<div class="container-fluid bg-light">
+    <div class="container">
+      <div class="card card-sm mt-5">
+        <div class="card-title mx-4 mt-4">Login</div>
+        <div class="card-body">
+          <form [formGroup]="loginForm">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        formControlName="email"
+                        placeholder="Enter Email"
+                        class="form-control"
+                        autocomplete="of"
+                      />
+                      <span
+                        class="text-danger"
+                        *ngIf="
+                          loginForm.get('email')?.hasError('required') &&
+                          loginForm.get('email')?.touched
+                        "
+                        >Name is required ..</span
+                      >
+                      <span
+                        class="text-danger"
+                        *ngIf="
+                          loginForm.get('email')?.hasError('email') &&
+                          loginForm.get('email')?.touched
+                        "
+                        >Write a valid email ..</span
+                      >
+                    </div>
+                  </div>
+                  </div>
+                  <div class="row">
+
+              <div class="col-md-6 col-sm-12">
+                <div class="form-group">
+                  <input
+                    type="password"
+                    formControlName='password'
+                    placeholder="Enter Password"
+                    class="form-control"
+                    autocomplete="of"
+                  />
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      loginForm.get('password')?.hasError('required') &&
+                      loginForm.get('password')?.touched
+                    "
+                    >password is required ..</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <button class="btn btn-primary" (click)='checkLogin()' [disabled]='!loginForm.valid'>Save</button>
+                  </div>
+                </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
