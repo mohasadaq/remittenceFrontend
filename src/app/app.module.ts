@@ -27,6 +27,8 @@ import { CustomerLayoutComponent } from './components/customer-layout/customer-l
 import { AppLayoutComponent } from './components/app-layout/app-layout.component';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { SendmoneyComponent } from './components/sendmoney/sendmoney.component';
+import { AprovemoneyComponent } from './components/aprovemoney/aprovemoney.component';
+import { PermissionsComponent } from './components/permissions/permissions.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { SendmoneyComponent } from './components/sendmoney/sendmoney.component';
     LoginComponent,
     CustomerLayoutComponent,
     AppLayoutComponent,
-    SendmoneyComponent
+    SendmoneyComponent,
+    AprovemoneyComponent,
+    PermissionsComponent
   ],
   imports: [
     BrowserModule,

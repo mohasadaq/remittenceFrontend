@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
           let userData: any = jwt_decode(response.message.token);
           this.auth.getRolePermission(userData);
           if (this.hasPermission()) {
-            this.route.navigateByUrl('/sendmoney');
+            this.route.navigateByUrl('/sendMoney');
             this.toastr.success('successfuly', 'Great');
           } else {
             this.toastr.error('You can not Access Contact System Admin !');

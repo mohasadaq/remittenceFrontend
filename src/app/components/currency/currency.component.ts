@@ -30,12 +30,14 @@ export class CurrencyComponent implements OnInit {
     this.currencyForm = this.fb.group({
       name: ['', Validators.required],
       code: ['', Validators.required],
+      rate: ['', Validators.required],
       countryId: ['', Validators.required],
     });
 
     this.currencyEditForm = this.fb.group({
       name: ['', Validators.required],
       code: ['', Validators.required],
+      rate: ['', Validators.required],
       currencyId: ['', Validators.required],
     });
   }
@@ -83,6 +85,7 @@ export class CurrencyComponent implements OnInit {
     $('#edtcurrency').modal('show');
     this.currencyEditForm.get('name')?.setValue(currency.currancyname);
     this.currencyEditForm.get('code')?.setValue(currency.currancycode);
+    this.currencyEditForm.get('rate')?.setValue(currency.rate);
     this.currencyEditForm.get('currencyId')?.setValue(currency.currancyid);
   }
 

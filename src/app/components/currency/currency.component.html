@@ -84,6 +84,17 @@
                           aria-sort="ascending"
                           aria-label="Rendering engine: activate to sort column descending"
                         >
+                          Currency Rate
+                        </th>
+                        <th
+                          class="sorting sorting_asc"
+                          tabindex="0"
+                          aria-controls="example1"
+                          rowspan="1"
+                          colspan="1"
+                          aria-sort="ascending"
+                          aria-label="Rendering engine: activate to sort column descending"
+                        >
                           Country Name
                         </th>
                         <th
@@ -103,6 +114,7 @@
                         <td>{{ currency.currancyid }}</td>
                         <td>{{ currency.currancyname }}</td>
                         <td>{{ currency.currancycode }}</td>
+                        <td>{{ currency.rate | currency}}</td>
                         <td>{{ currency.countryname }}</td>
                         <td>
                           <a
@@ -186,6 +198,26 @@
                   *ngIf="
                     currencyForm.get('code')?.hasError('required') &&
                     currencyForm.get('code')?.touched
+                  "
+                  >Currency code is required ..</span
+                >
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <input
+                  type="text"
+                  formControlName="rate"
+                  placeholder="Currency Rate"
+                  class="form-control"
+                  autocomplete="of"
+                />
+
+                <span
+                  class="text-danger"
+                  *ngIf="
+                    currencyForm.get('rate')?.hasError('required') &&
+                    currencyForm.get('rate')?.touched
                   "
                   >Currency code is required ..</span
                 >
@@ -287,6 +319,26 @@
                   *ngIf="
                     currencyEditForm.get('code')?.hasError('required') &&
                     currencyEditForm.get('code')?.touched
+                  "
+                  >Currency code is required ..</span
+                >
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <input
+                  type="text"
+                  formControlName="rate"
+                  placeholder="Currency Rate"
+                  class="form-control"
+                  autocomplete="of"
+                />
+
+                <span
+                  class="text-danger"
+                  *ngIf="
+                    currencyForm.get('rate')?.hasError('required') &&
+                    currencyForm.get('rate')?.touched
                   "
                   >Currency code is required ..</span
                 >

@@ -1,12 +1,4 @@
-<button
-  type="button"
-  class="btn btn-primary"
-  data-toggle="modal"
-  data-target="#moda"
-  (click)="showModel()"
->
-  add remittence
-</button>
+
 <div class="card card-default mt-2">
   <div class="card-header">
     <h3 class="card-title">remittence List</h3>
@@ -163,7 +155,11 @@
                         >
                           Date
                         </th>
-                        <th class="sorting">Action</th>
+                        <th class="sorting">Status</th>
+                        <th class="sorting"
+                        rowspan="1"
+                        colspan="1"
+                        >Action</th>
                       </tr>
                     </thead>
                     <tbody id="tbody">
@@ -175,12 +171,13 @@
                         <td>{{ remittence.sendingfrom }}</td>
                         <td>{{ remittence.currancyname }}</td>
                         <td>{{ remittence.sendingto }}</td>
-                        <td>{{ remittence.sendingamount | currency }}</td>
+                        <td>{{ remittence.sendingamount}} {{remittence.currancycode}}</td>
                         <td>{{ remittence.recievingamount | currency}}</td>
                         <td>{{ remittence.charge | currency }}</td>
                         <td>{{ remittence.datecreated }}</td>
-                        <td class="bg-success">
-                          Pending
+                        <td>{{ remittence.statusname }}</td>
+                        <td>
+                          <a class="btn btn-success" (click)="showModel(remittence.remittenceid)">Accept</a>
                         </td>
                       </tr>
                     </tbody>
@@ -201,10 +198,9 @@
 
 
 
-
 <!-- modal starts here -->
-<div class="modal fade" id="modal-default">
-    <div class="modal-dialog modal-lg">
+<div class="modal fade" id="aproveremittencemodel">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">remittence</h4>
@@ -220,135 +216,25 @@
         <div class="modal-body">
           <form [formGroup]="remittenceForm">
             <div class="row mt-5 g-4">
-            <div class="col-md-6">
-              <div class="form-group">
-                <select
-                  id="sendingfrom"
-                  formControlName="sendingfrom"
-                  class="form-control"
-                >
-                <option value=''>Sending From</option>
-              </select>
-                <span
-                  class="text-danger"
-                  *ngIf="
-                    remittenceForm.get('sendingfrom')?.hasError('required') &&
-                    remittenceForm.get('sendingfrom')?.touched
-                  "
-                  >Country is required ..</span
-                >
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <select
-                  id="sendingto"
-                  formControlName="sendingto"
-                  class="form-control"
-                >
-                <option value=''>Sending To</option>
-              </select>
-                <span
-                  class="text-danger"
-                  *ngIf="
-                    remittenceForm.get('sendingto')?.hasError('required') &&
-                    remittenceForm.get('sendingto')?.touched
-                  "
-                  >Country is required ..</span
-                >
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <div class="form-group">
-                <select
-                  id="receiverid"
-                  formControlName="receiverid"
-                  class="form-control"
-                >
-                <option value=''>Send To</option>
-              </select>
-                <span
-                  class="text-danger"
-                  *ngIf="
-                    remittenceForm.get('receiverid')?.hasError('required') &&
-                    remittenceForm.get('receiverid')?.touched
-                  "
-                  >Receiver is required ..</span
-                >
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <select
-                  id="paymantid"
-                  formControlName="paymantid"
-                  class="form-control"
-                >
-                <option value=''>Payment Type</option>
-              </select>
-                <span
-                  class="text-danger"
-                  *ngIf="
-                    remittenceForm.get('paymantid')?.hasError('required') &&
-                    remittenceForm.get('paymantid')?.touched
-                  "
-                  >Paymant type is required ..</span
-                >
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <div class="form-group">
-                <input type="number"
-                  id="sendingamount"
-                  formControlName="sendingamount"
-                  placeholder="Sending amount"
-                  class="form-control"
-                  step="any"
-                />
-                <span
-                  class="text-danger"
-                  *ngIf="
-                    remittenceForm.get('sendingamount')?.hasError('required') &&
-                    remittenceForm.get('sendingamount')?.touched
-                  "
-                  >sending amount is required ..</span
-                >
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <input type="number"
-                 id='recievingamount'
-                  formControlName="recievingamount"
-                  placeholder="Recieving amount"
-                  class="form-control"
-                  [disabled]='true'
-                  step="any"
-                />
-                <span
-                  class="text-danger"
-                  *ngIf="
-                    remittenceForm.get('recievingamount')?.hasError('required') &&
-                    remittenceForm.get('recievingamount')?.touched
-                  "
-                  >recieving amount is required ..</span
-                >
-              </div>
-            </div>
-            <div class="col-md-6 col-sm-6 text-primary">
-              <Span>{{convertion}}</Span>
-            </div>
-            <div class="col-md-6 col-sm-6 text-primary">
-              <Span>{{charge}}</Span>
-            </div>
-            <div class="col-md-6 col-sm-6 text-primary">
-            </div>
-            <div class="col-md-6 col-sm-6 text-primary mt-2">
-              <Span>{{total}}</Span>
-            </div>
-            
+                <div class="col-md-12">
+                    <div class="form-group">
+                      <select
+                        id="status"
+                        formControlName="status"
+                        class="form-control"
+                      >
+                      <option value=''>Select Status </option>
+                    </select>
+                      <span
+                        class="text-danger"
+                        *ngIf="
+                          remittenceForm.get('status')?.hasError('required') &&
+                          remittenceForm.get('status')?.touched
+                        "
+                        >Status is required ..</span
+                      >
+                    </div>
+                  </div>
             </div>
   
           </form>
@@ -357,7 +243,7 @@
           <button type="button" class="btn btn-default" data-dismiss="modal">
             Close
           </button>
-          <button (click)="addRemittence()"   [disabled]="!remittenceForm.valid" class="btn btn-primary">Save</button>
+          <button (click)="updateStatus()"   [disabled]="!remittenceForm.valid" class="btn btn-primary">Save</button>
         </div>
       </div>
       <!-- /.modal-content -->
@@ -365,4 +251,3 @@
     <!-- /.modal-dialog -->
   </div>
   <!-- end  of modal -->
-  

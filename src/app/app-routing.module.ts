@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PermissionGuard } from './common/permission.guard';
 import { AppLayoutComponent } from './components/app-layout/app-layout.component';
+import { AprovemoneyComponent } from './components/aprovemoney/aprovemoney.component';
 import { CityComponent } from './components/city/city.component';
 import { CountryComponent } from './components/country/country.component';
 import { CurrencyComponent } from './components/currency/currency.component';
@@ -32,7 +33,9 @@ children :[
       canActivate: [PermissionGuard],
       data: {permission: 'viewAllUsers'}
     },
-     {path:'customer', component:CustomerComponent, canActivate: [PermissionGuard],},
+     {path:'customer', component:CustomerComponent, canActivate: [PermissionGuard],
+      data:{permission: 'viewCustomer'}
+    },
      {path:'country', component:CountryComponent},
      {path:'state', component:StateComponent},
      {path:'city', component:CityComponent},
@@ -40,7 +43,7 @@ children :[
      {path:'currency', component:CurrencyComponent},
      {path:'role', component:RoleComponent},
      {path:'sendMoney', component:SendmoneyComponent},
-
+     {path:'aprove', component:AprovemoneyComponent},
    ]
   },
 ];

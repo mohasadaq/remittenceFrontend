@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { LocalStorage } from 'src/app/common/local.storage';
 import { CustomerService } from 'src/app/service/customer.service';
 declare var $ : any
 @Component({
@@ -16,15 +17,20 @@ export class CustomerComponent implements OnInit {
   customerEditForm!: FormGroup;
 
   constructor(private customer : CustomerService, private fb : FormBuilder,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService, private localStorage: LocalStorage) { }
 
   ngOnInit(): void {
     this.getCustomers()
+    let userId : number = 0
+    userId = ((
+      this.localStorage.getData().customerId) ? 
+      this.localStorage.getData().customerId : 0)
+
     this.customerForm = this.fb.group({
       name: ['', Validators.required],
       address: ['', Validators.required],
       contact: ['', Validators.required],
-      userid: [1],
+      userid: [userId],
       email: [null, [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
@@ -58,8 +64,14 @@ export class CustomerComponent implements OnInit {
   }
   
   getCustomers(): void{
-    this.customer.getCustomers().subscribe(response=>{
-      this.customerList = response
+    this.customer.getCustomers().subscribe((response:any)=>{
+      let isaCustomer = this.localStorage.getData().customerId
+      if(isaCustomer){
+        this.customerList = response.data.filter((customer :any)=> customer.userid==isaCustomer || 
+        customer.customerid==isaCustomer)
+      }else{
+        this.customerList = response.data
+      }
       this.dataTable()
     })
   }
